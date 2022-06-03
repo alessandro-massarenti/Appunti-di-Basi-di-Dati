@@ -1,4 +1,4 @@
-\documentclass[a4paper, 11pt]{report}
+\documentclass[a4paper, 10pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
@@ -12,14 +12,12 @@
 
 \usepackage{hyperref}
 \usepackage{geometry}
- \geometry{
- a4paper,
- left=25mm,
- right=25mm,
- top=20mm,
- bottom=20mm,
- }
- 
+\geometry{
+a4paper,
+total = {170mm, 240mm},
+left = 20mm,
+top = 20mm,
+}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -53,13 +51,12 @@
 
 \newtheorem{exmp}{Example}[section]
 
-\setlength{\parskip}{1em}
+\setlength{\parskip}{0.5em}
 \setlength{\parindent}{0pt}
-
 
 \title{Appunti di \textit{"Basi di Dati"}}
 \author{Alessandro Massarenti}
-\date{September 2021}
+\date{Gennaio 2022}
 
 \begin{document}
 
@@ -74,6 +71,7 @@
 \input{contents/sql}
 \input{contents/progettazione}
 \input{contents/generalizzazioni}
+\input{contents/normalizzazione}
 
 \lstlistoflistings
 

@@ -1,0 +1,35 @@
+\chapter{Normalizzazione}
+
+La normalizzazione è un processo utilizzato per trasformare una base di dati non progettata in maniera corretta in una che sia tale.
+
+La normalizzazione si può inoltre usare per capire se la progettazione effettuata è stata corretta.
+
+\section{Anomailie}
+
+Se una base di dati non è normalizzata possono sussistere varie anomalie che possono precludere la consistenza e la solidità di una base di dati.
+
+Ridondanza
+Anomalia di aggiornamento
+Anomalia di cancellazione
+(Come effetto collaterale rischio di prendere anche altre informazioni che avrei dovuto mantenere)
+
+\section{Dipendenze funzionali}
+
+Una base di dati avrà sempre intrinsecamente delle dipendenze funzionali, queste dipendenze definiscono che se A avrà un certo valore allora B avrà sempre un valore relativamente ad A
+
+\[ A \rightarrow B\]
+
+Impiegato -> Stipendio.
+
+Le anomalie sono legate alle dipendenze funzionali.
+
+Le dipendenze migliori sono quelle dove la parte di sinistra è superchiave della relazione.
+
+\section{Forme normali}
+\subsection{Forma normale di Boyce Codd(BCNFF)}
+
+Una relazione è in forma normale di BC se ogni dipendenza funzionale non banale è buona.
+
+Per ogni dipendenza xy che viola bcnf creo una relazione xy e tolgo y dalla tabella di partenza.
+
+\subsection{Terza forma normale}
