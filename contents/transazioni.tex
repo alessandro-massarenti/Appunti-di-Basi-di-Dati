@@ -1,0 +1,69 @@
+\chapter{Gestione delle transazioni}
+
+Le transazioni il paradigma utilizzato dai DBMS per gestire richieste concorrenti di lettura e scrittura sui dati.
+
+Le transazioni sono suddivise principalmente in 3 parti:
+\begin{itemize}
+    \item Inizio della transazione
+    \item Corpo di azioni della transazione
+    \item Fine della transazione dove viene deciso se fare un commit della stessa oppure un rollback.
+\end{itemize}
+
+Un sistema transazionale è detto anche \textbf{OLTP} ed è in grado di definire ed eseguire transazioni per conto di un certo numero di applicazioni concorrenti. In parole più semplici offre un'interfaccia trasparente alle applicazioni mantenendo sicuro l'agire sui dati.
+
+\begin{lstlisting}
+start transaction;
+update ContoCorrente
+set Saldo = Saldo + 10 where NumConto = 12202;
+update ContoCorrente
+set Saldo = Saldo - 10 where NumConto = 42177;
+commit work;
+\end{lstlisting}
+
+\section{ACID}
+
+Abbiamo quindi che un'applicazione effettua molteplici transazioni e molte applicazioni effettuano parecchie transazioni in parallelo. Risulta importante per la base dati mantenere quindi il concetto di \textbf{ACID}
+
+\textbf{ACID} é l'acronimo di:
+\begin{itemize}
+    \item Atomicity (Atomicità)
+    \item Consistency (Consistenza)
+    \item Isolation (Isolamento)
+    \item Durability (Persistenza)
+\end{itemize} 
+
+Una transazione deve essere un'unità \textbf{atomica} di elaborazione. In parole semplici, o la transazione è fatta per intero oppure non deve essere eseguita per nulla.
+
+\begin{exmp}
+    L'esempio più classico di questa proprietà è quando si fa un movimento monetario in banca.
+    
+    Quando devo muovere del denaro da un conto ad un altro dovrò rimuovere del denaro da un primo conto e aggiungerlo in un secondo conto. Se per qualche malaugurato caso l'operazione non andasse a buon fine in un momento intermedio si rischierebbe di sballare i conteggi di uno dei due conti se non di entrambi.
+    
+    Cosa che per una banca può essere un problema di migliaia o milioni di euro.
+\end{exmp}
+
+Una transazione deve essere \textbf{Consistente}, deve infatti rispettare i vincoli imposti nella fase di progettazione del Database, come chiave, integrità referenziale, check, ecc.
+
+Questi vincoli che determinano la consistenza dei dati vanno verificati solo a fine transazione, possono quindi essere violati temporaneamente nel mezzo di una transazione.
+
+Se i vincoli risultano violati alla fine della transazione allora la transazione andrà in rollback.
+
+Una transazione deve essere poi \textbf{Isolata}, non deve infatti risentire degli effetti delle altre transazioni concorrenti. In poche parole l'esecuzione concorrente deve produrre un risultato identico a quello che verrebbe ottenuto se le transazioni concorrenti venissero invece eseguite sequenzialmente.
+
+Se una transazione esponesse i suoi stati intermedi si rischierebbe un effetto domino.
+
+Gli effetti di una transazione che ha raggiunto il commit non devono essere persi in qualsiasi csao, anche in presenza di guasti.
+
+Sia che questi guasti siano di dispositivo\footnote{Hardware} oppure che questi guasti siano di sistema\footnote{Software}.
+
+\section{Processi di ripresa}
+
+Le riprese da un crash sono di due tipi: ripresa a caldo e ripresa a freddo.
+
+Una ripresa a freddo viene eseguita quando il problema è stato a livello Hardware, in quel caso si deve ripristinare i dati da un dump e in secondo luogo eseguire la ripresa a caldo.
+
+La ripresa a caldo risolve tutti i problemi relativi alle transazioni in atto al momento del crash.
+
+La ripresa a freddo si avvale di un dump eseguito periodicamente nel log. Il dump in oggetto viene copiato nel database e ne ripristina i dati fino al suo momento.
+
+Dopo il dump bisognerà invece scorrere il log ed eseguire tutte le transazioni nella sequenza indicata.
