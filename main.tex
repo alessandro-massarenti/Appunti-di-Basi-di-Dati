@@ -1,0 +1,80 @@
+\documentclass[a4paper, 11pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\usepackage[italian]{babel}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=25mm,
+ right=25mm,
+ top=20mm,
+ bottom=20mm,
+ }
+ 
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+ 
+\lstdefinestyle{pretty_sql}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=sql
+}
+
+\lstset{style=pretty_sql}
+
+\newtheorem{assioma}{Assioma}
+
+\newtheorem{exmp}{Example}[section]
+
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+
+
+\title{Appunti di \textit{"Basi di Dati"}}
+\author{Alessandro Massarenti}
+\date{September 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{contents/rel_model}
+\input{contents/chiavi}
+\input{contents/algebra_relazionale}
+\input{contents/viste}
+\input{contents/sql}
+\input{contents/progettazione}
+\input{contents/generalizzazioni}
+
+\lstlistoflistings
+
+\end{document}

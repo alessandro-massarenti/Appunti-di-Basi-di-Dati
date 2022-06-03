@@ -1,0 +1,100 @@
+\chapter{Algebra relazionale}
+
+L'algebra relazionale è un linguaggio atto a definire in maniera chiara e matematica le relazioni tra i dati.
+
+Abbiamo quindi la differenza tra:
+
+\begin{itemize}
+    \item DDL: data definition language
+    \item DML: data manipulation language
+\end{itemize}
+
+Le relazioni saranno definite come il semplice prodotto cartesiano tra insiemi.
+
+\section{Operatore Unione}
+L'operatore di unione è l'unione matematica di due insiemi, si avrà quindi come risultato tutti gli elementi degli insiemi uniti togliendo i duplicati.
+
+Questo operatore è rappresentato dal simbolo $\cup$.
+
+\section{Operatore intersezione}
+L'operatore di intersezione sono, come in matematica, gli elementi comuni agli insiemi intersecati.
+
+Questo operatore è rappresentato dal simbolo $\cap$.
+\section{Differenza}
+Considerando due insiemi, $A$ e $B$, l'operazione di differenza ritorna solo gli elementi presenti in $A$ e non in $B$.
+
+Questo operatore è rappresentato dal simbolo $\subset$.
+
+\section{ridefinizione}
+
+Ho una ridefinizione quando cambio un'intestazione della tabella.
+
+In inglese questa operazione viene definita come \textit{"Rename"}.
+
+Questo operatore è rappresentato dal simbolo $\rho $\footnote{Rho}.
+
+\section{selezione}
+
+Quando prendo un sottoinsieme delle tuple faccio una selezione.
+
+Rappresento questo operatore con $\sigma $\footnote{Sigma}
+
+\begin{exmp}
+
+Ecco qualche selezione d'esempio:
+
+$\sigma \text{stipendio} > 50$;
+
+$\sigma \text{stipendio} > 50 \wedge \text{nome}=\text{"Mario"}$;
+\end{exmp}
+
+\section{proiezione}
+
+Sto facendo una proiezione quando prendo un sottoinsieme della tupla. Le proiezioni eliminano i duplicati.
+
+
+\begin{description}
+	\item[N.B.] Siccome eliminano i duplicati è bene farlo sulle super-chiavi.
+\end{description}
+
+Le proiezioni si rappresentano con il simbolo matematico $\Pi$\footnote{Pi} ovvero project.
+
+%Da espandere di molto la sezione
+\section{join}
+
+Quando faccio una join prendo 2 relazioni e unisco le tuple su attributi uguali.
+
+Un join è completo se faccio proiezioni sugli operandi riottengo i primi, non è completo se alcuni campi non corrispondono.
+
+Il join ri rappresentano con il simbolo $\bowtie$.
+
+Esistono poi più tipologie di join:
+\begin{itemize}
+    \item join esterno
+    \item semi join
+    \item join cartesiano, detto anche join naturale
+    \item theta join
+\end{itemize}
+
+
+
+\subsection{Join esterno}
+
+In un join esterno mantengo gli $R_1$ senza match mettendo i corrispondenti a \textit{NULL}
+
+\begin{exmp}
+\[ R_1 \bowtie _{LEFT} R_2  \]
+\end{exmp}
+
+\subsection{Semi join}
+
+\begin{exmp}
+\[ R_1 \bowtie _{SEMI} R_2 = \Pi _R1\left( R_1 \bowtie R_2 \right)   \]
+\end{exmp}
+
+\subsection{Join cartesiano, detto anche join naturale}
+
+Join senza match tra attributi
+
+\subsection{Theta join}
+\[ R_1 \bowtie _{COND} R_2 = \sigma cond \left(R_1 \bowtie R_2 \right) \]

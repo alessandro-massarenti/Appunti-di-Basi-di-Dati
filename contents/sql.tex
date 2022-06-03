@@ -1,0 +1,196 @@
+\chapter{SQL}
+
+SQL sta per Structured Query Language. Questo linguaggio serve a definire dei comandi da inviare al DBMS, esso ci risponderà con informazioni relative alla query.
+
+Tramite l'SQL si possono inserire, rimuovere e modificare dati, inoltre tramite questo linguaggio si possono creare le strutture e aggiungere legami tra tabelle e dati.
+
+\section{Create table}
+
+Crea una tabella, ovvero uno schema di relazione tra domini e dati.
+
+\begin{lstlisting}
+CREATE TABLE nome (
+    nome_attr TIPO VINCOLI,
+    FOREIGN KEY(attributo) REFERENCES Tabella(attributo),
+    UNIQUE(attributo),
+    )
+\end{lstlisting}
+
+\subsection{Domini elementari}
+I domini elementari sono i domini base che può avere ogni dato inserito.
+
+\begin{itemize}
+    \item Stringhe
+    \begin{itemize}
+        \item char
+        \item varchar
+    \end{itemize}
+    \item number
+    \begin{itemize}
+        \item int
+        \item float
+        \item ecc
+    \end{itemize}
+\end{itemize}
+
+\subsection{Domini customizzati}
+
+Posso anche creare domini customizzati, li creo con la seguente sintassi.
+
+\begin{lstlisting}
+CREATE DOMAIN nome
+AS TIPO DEFAULT valore
+CHECK(condizione)
+
+\end{lstlisting}
+
+
+\subsection{Vincoli}
+
+Posso avere vari vincoli da aggiungere ai domini e ai dati presenti nella tabella.
+
+\begin{lstlisting}
+NOT NULL
+UNIQUE
+PRIMARI KEY
+CHECK
+REFERENCES
+FOREIGN KEY
+\end{lstlisting}
+
+
+\subsection{Update e Delete}
+
+Posso inoltre decidere cosa succede per i dati gerarchicamente inferiori in caso di aggiornamento o rimozione dati. Per scrivere questa decisione la sintassi è la seguente:
+
+\begin{lstlisting}
+ON <update | delete> <cascade | set null | set default | no action>
+\end{lstlisting}
+
+\section{Interrogazione del DBMS}
+
+\begin{lstlisting}
+    SELECT attributi
+    FROM tabela
+    WHERE condizione
+\end{lstlisting}
+
+Gli attributi sono rinominabili per poter rendere più leggibile il risultato dell'interrogazione. Per rinominarli si usa:
+
+\begin{lstlisting}
+    attributo as nomeattributo
+\end{lstlisting}
+
+Questi comandi SQL trovano le loro controparti in algebra relazionale come segue:
+
+\begin{itemize}
+    \item attributi sono $\Pi$
+    \item condizione sono $\sigma$
+    \item rinominazione è $\rho$
+\end{itemize}
+
+\begin{description}
+	\item[N.B.] Una differenza molto importante tra SQL ed algebra relazionale è che nelle select non c'è collasso, se desidero questa funzionalità in più dovrò utilizzare il la keyword DISTINCT.
+ \end{description}
+
+\subsection{Pattern di ricerca}
+Quando faccio un'interrogazione del database e utilizzo il modificatore WHERE, posso utilizzare dei pattern per la ricerca, uno dei più utilizzati è \textit{LIKE}, si utilizza come segue:
+
+\begin{lstlisting}
+    nome LIKE "pattern"
+\end{lstlisting}
+
+\begin{itemize}
+    \item Il simbolo "-" significa, "qualsiasi carattere"
+    \item Il simbolo "\%" significa, "qualsiasi sequenza di caratteri(anche vuota)
+\end{itemize}
+
+Qualasiasi confronto con \textit{NULL} è falso.
+
+\subsection{join}
+
+Una clausula di join si usa per combinare le righe di due o più tabelle, basandosi su una colonna di relazione tra loro.
+
+In algebra relazionale questo concetto è definito da $\bowtie$.
+
+
+\subsubsection{join esplicito}
+
+Posso eseguire left join, right join e full join
+
+\subsection{order by}
+
+In un modello relazionale, i dati non hanno ordine. Quando si esegue una query si può quindi decidere di dare ad essi un ordine per renderli più leggibili agli umani. Per riordinare i dati la keyword che si utilizza è \textit{ORDER BY}.
+
+Tramite \textit{ORDER BY} è possibile riordinare colonna per colonna, si potrà poi decidere se in ordine crescente o decrescente.
+
+\subsection{operatori}
+
+Alcuni operatori utilizzabili in SQL sono: 
+
+\begin{itemize}
+    \item \textit{COUNT}
+    \item \textit{MIN}
+    \item \textit{MAX}
+    \item \textit{AVG}
+    \item \textit{SUM}
+\end{itemize}
+
+Questi operatori si può abbastanza semplicemente capire cosa fanno.
+
+\subsubsection{Operatori aggregati e \textit{NULL}}
+
+Gli operatori aggregati ignorano i valori \textit{NULL}, anche count ignora i valori nulli.
+
+\subsection{Raggruppamenti}
+Tramite SQL è inoiltre possibile aggregare e raggruppare i risultati delle query, per farlo si usa \textit{GROUP BY}
+
+\subsubsection{Union}
+
+
+\subsubsection{Except}
+\subsubsection{Intersect}
+\subsubsection{In}
+\subsubsection{Any}
+\subsubsection{Exist}
+
+\section{Concetti avanzati di SQL}
+
+\subsection{Vincoli di integrità generici}
+
+Tramite SQL posso creare dei vincoli di integrità generici, questi vincoli controlleranno che non ci siano condizioni non rispettate.
+
+Per utilizzare questo strumento tramite SQL si utilizza:
+
+\begin{lstlisting}[caption= Utilizzo di CHECK]
+    CHECK (<condizione>)
+    
+    --oppure ad esempio
+    
+    CHECK(lordo = netto + ritenute)
+\end{lstlisting}
+
+\subsection{Creazione di viste}
+
+In SQL si può svuiluppare il concetto di vista che si è osservato al capitolo \ref{chap:viste}.
+
+Per creare una vista tramite SQL la dicitura è la seguente:
+
+\begin{lstlisting}[caption=Creazione di viste]
+    CREATE VIEW <nome_vista>[<lista_attributi>] AS SELECT
+    
+    WITH CHECK OPTION
+    
+    --Il check permette update,
+    --ovvero la tupla modificata rimane nella lista.
+    
+    SELECT * FROM <nome_vista>
+\end{lstlisting}
+
+\subsection{Coalesce}
+
+\subsection{null if}
+
+\subsection{CASE}
+
+\subsection{Controllo degli accessi}

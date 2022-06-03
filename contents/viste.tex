@@ -1,0 +1,37 @@
+\chapter{Viste}\label{chap:viste}
+
+Le viste sono una rappresentazione differente degli stessi dati, servono per rendere più leggibile l'informazione proveniente da alcuni dati e nei DBMS aiuta ad ottimizzare l'accesso in lettura alle informazioni, poichè in caso di join queste vengono precaricare.
+
+\section{Tipi di viste}
+
+Di viste ne esistono principalmente due tipi, queste viste hanno ognuna pregi e difetti.
+
+\begin{itemize}
+    \item viste materializzate
+    \item viste virtuali
+\end{itemize}
+
+\subsection{Viste materializzate}
+Sono viste memorizzate nel database e non hanno ricalcoli. Sono tendenzialmente delle viste ridondanti e non sempre sono supportate.
+
+\subsection{Viste virtuali}
+Sono alias per delle query e vengono ricalcolate.
+
+\section{Ottimizzazione delle viste}
+
+Chiaramente Esistono modi buoni e modi pessimi per utilizzare le viste, vediamo quindi come ottimizzare il loro utilizzo.
+
+\subsection{Equivalenza di espressione}
+
+$X(Y+Z) = X Y + X Z$
+
+Ottimizzazione query
+
+$ \sigma _{cond} \left( R_1 \bowtie  R_2 \right) = R_1 \bowtie \sigma _{cond} R_2$ se cond è indipendente
+
+
+%Non ho capito cosa si intende in questo caso.
+
+
+\subsection{Modifiche tramite viste}
+È possibile fare modifiche tramite viste solo su join complete.
