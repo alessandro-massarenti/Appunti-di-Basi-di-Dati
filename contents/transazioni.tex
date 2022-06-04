@@ -80,19 +80,39 @@ In uno schedule seriale le transazioni sono seprate e vengono eseguite una alla 
 
 Avremo infatti uno \textbf{schedule serializzabile} quando uno schedule produce lo stesso risultato di uno schedule seriale eseguito sulle stesse transazioni.
 
-Gli insiemi di schedule sono i seguenti, mostrati nell'immagine.
+\[ \text{Schedule seriale} \implies \text{Schedule serializzabile}\]
 
-L'immagine ne da un'interpretazione insiemistica, infatti si può riconoscere se uno schedule risponde ad una certa classe di problemi.
+L'insieme degli schedule serializzabili contiene l'insieme degli schedule seriali.
 
-\[CSR \implies VSR\]
+Gli schedule serializzabili utilizzati sono:
+\begin{itemize}
+    \item View serializzabili
+    \item Conflict serializzabili
+    \item Two Phase locking
+\end{itemize}
 
 \includegraphics[width=\linewidth]{img/schedules.png}
 
+\subsection{View serializzabilità}
+
+Uno schedule è view serializzabile se è view equivalente ad almeno uno schedule seriale.
+
+Uno schedule è view equivalente ad un altro se le letture leggono dagli stessi eventi come nell'altro schedule e la sequenza di scritture finali è la stessa.
+
+Uno schedule view serializzabile offre numerose \textbf{garanzie}
+\begin{itemize}
+    \item Assienza di perdita di aggiornamento
+    \item Assenza di letture inconsistenti
+    \item Assenza di Gost updates
+\end{itemize}
+
 \subsection{Conflict serializzabilità}
 
-Se uno schedule è Conflict serializzabile allora è sicuramente anche View serializzabile.
+Siccome cercare la view serializzabilità con molte transazioni diventa un lavoro molto costoso, si preferisce cercare la conflict serializzabilità. Si ha infatti che costa meno in tempo eseguire serialmente uno schedule view serializzabile ma non conflict serializzabile piuttosto che conoscere se esso è view serializzabile oppure no.
 
-\[CSR \implies VSR\]
+Se uno schedule è Conflict serializzabile allora è sicuramente anche View serializzabile. Uno schedule Conflict serializzabile è un sottoinsieme degli schedule View serializzabili.
+
+\[CSR \implies VSR \implies \text{Schedule serializzabile}\]
 
 Se uno schedule è conflict serializzabile allora è possibile costruire un grafo aciclico dei conflitti.
 
