@@ -67,3 +67,35 @@ La ripresa a caldo risolve tutti i problemi relativi alle transazioni in atto al
 La ripresa a freddo si avvale di un dump eseguito periodicamente nel log. Il dump in oggetto viene copiato nel database e ne ripristina i dati fino al suo momento.
 
 Dopo il dump bisognerà invece scorrere il log ed eseguire tutte le transazioni nella sequenza indicata.
+
+\section{I vari schedule}
+
+Uno schedule è una sequenza di operazioni di input/output concorrenti.
+
+Lo \textbf{scheduler} invece è il sistema che accetta, rifiuta o riordina le operazioni richieste dalle transazioni.
+
+Esistono vari tipi di \textbf{Scheduling} che ritornano vari tipi di schedule.
+
+In uno schedule seriale le transazioni sono seprate e vengono eseguite una alla volta, questo tipo di schedule è sicuro perché eseguendo tutte le operazioni in ordine non è possibile trovarsi in una situazione di race condition. In tutti gli schedule successivi si cercherà infatti di tornare a questo tipo di schedule.
+
+Avremo infatti uno \textbf{schedule serializzabile} quando uno schedule produce lo stesso risultato di uno schedule seriale eseguito sulle stesse transazioni.
+
+Gli insiemi di schedule sono i seguenti, mostrati nell'immagine.
+
+L'immagine ne da un'interpretazione insiemistica, infatti si può riconoscere se uno schedule risponde ad una certa classe di problemi.
+
+\[CSR \implies VSR\]
+
+\includegraphics[width=\linewidth]{img/schedules.png}
+
+\subsection{Conflict serializzabilità}
+
+Se uno schedule è Conflict serializzabile allora è sicuramente anche View serializzabile.
+
+\[CSR \implies VSR\]
+
+Se uno schedule è conflict serializzabile allora è possibile costruire un grafo aciclico dei conflitti.
+
+Infatti se abbiamo un grafo aciclico dei conflitti possiamo anche comprendere se il nostro schedule è conflict serializzabile. Inoltre il grafo ci può fornire anche un ordine in cui le transazioni devono essere eseguite per avere uno schedule seriale.
+
+Lo schedule seriale è conflict equivalente e quindi view equivalente.
