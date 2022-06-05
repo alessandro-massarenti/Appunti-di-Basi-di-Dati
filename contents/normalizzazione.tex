@@ -8,10 +8,26 @@ La normalizzazione si può inoltre usare per capire se la progettazione effettua
 
 Se una base di dati non è normalizzata possono sussistere varie anomalie che possono precludere la consistenza e la solidità di una base di dati.
 
-Ridondanza
-Anomalia di aggiornamento
-Anomalia di cancellazione
-(Come effetto collaterale rischio di prendere anche altre informazioni che avrei dovuto mantenere)
+\begin{itemize}
+    \item Ridondanza
+    \item Anomalia di aggiornamento
+    \item Anomalia di cancellazione
+    \item Anomailia di inserimento
+\end{itemize}
+
+\paragraph{Ridondanza}
+Ho che uno stesso dato viene ripetuto più volte nella tabella.
+
+\paragraph{Anomalia di aggiornamento}
+Se un dato ridondante varia è necessario che quella ridondanza venga manuta consistente in tutte le tuple uguali. Altrimenti rischio inconsistenze che non sono facilmente gestibili.
+
+\paragraph{Anomalia di cancellazione}
+Se cancello una tupla e a quella tupla sono legate delle informazioni che non vorrei cancellare ma che essendo costruita male la struttura della tabella devo cancellare, ho perdita di dati.
+
+\paragraph{Anomalia di inserimento}
+Se ho un dato da voler inserire che non conosce gli altri campi dati della tupla non posso inserirlo perchè mancano delle informazioni che non posso avere.
+
+In poche parole queste anomalie derivano dal fatto che in una stessa tabella sono state aggiunte troppe informazioni e non viene rispettato il principio della singola responsabilità.
 
 \section{Dipendenze funzionali}
 
@@ -19,16 +35,31 @@ Una base di dati avrà sempre intrinsecamente delle dipendenze funzionali, quest
 
 \[ A \rightarrow B\]
 
-Impiegato -> Stipendio.
+\begin{exmp}
+    $\text{Impiegato} \rightarrow \text{Stipendio}$
+\end{exmp} 
 
-Le anomalie sono legate alle dipendenze funzionali.
+Se ho una dipendenza funzionale gestita in maniera non corretta avrò una delle anomalie precedentemente descritte.
 
-Le dipendenze migliori sono quelle dove la parte di sinistra è superchiave della relazione.
+Matematicamente una dipendenza funzionale è definita come:
+
+\[\forall t_1,t_2 \in R(X) : \pi_Y(t_1) = \pi_Y(t_2) \implies \pi_Z(t_1) = \pi_Z(t_1) \]
+
+%Le dipendenze migliori sono quelle dove la parte di sinistra è superchiave della relazione.
+
+Una dipendenza funzionale buona non causa anomalie.
+
+Infatti, se la dipendenza funzionale ha a sinistra della dipendenza una chiave, allora nella parte destra avrò un dato che è responsabilità della tabella immagazzinare. Questo viene però definito in maniera più completa nelle forme normali.
 
 \section{Forme normali}
+
+Le forme normali definiscono un pattern per strutturare la gestione delle dipendenze funzionali in modo da evitare le anomalie.
+
 \subsection{Forma normale di Boyce Codd(BCNFF)}
 
 Una relazione è in forma normale di BC se ogni dipendenza funzionale non banale è buona.
+
+Questa forma normale da inoltre uno strumento per rendere una relazione priva di anomalie.
 
 Per ogni dipendenza xy che viola bcnf creo una relazione xy e tolgo y dalla tabella di partenza.
 
