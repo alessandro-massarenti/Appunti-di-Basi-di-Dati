@@ -118,4 +118,71 @@ Se uno schedule è conflict serializzabile allora è possibile costruire un graf
 
 Infatti se abbiamo un grafo aciclico dei conflitti possiamo anche comprendere se il nostro schedule è conflict serializzabile. Inoltre il grafo ci può fornire anche un ordine in cui le transazioni devono essere eseguite per avere uno schedule seriale.
 
-Lo schedule seriale è conflict equivalente e quindi view equivalente.
+Lo schedule seriale è conflict equivalente e quindi view equivalente. Ovvero posso trovare uno schedule conflict serializzabile, conflict equivalente ad uno schedule seriale.
+
+\subsection{Svolgere gli esercizi}
+
+\begin{exmp}
+    Data lo schedule:
+
+    \[S = r_1(x), w_2(x), r_3(x), w_1(u), w_3(v), r_3(y), r_2(y), w_3(u), w_4(t), w_3(t)\]
+
+    Possiamo dire se è conflict serializzabile disegnando il grafo dei conflitti.
+
+    Seguendo l'algoritmo scorriamo ognuno dei punti della serie di transazioni e vediamo se va in conflitto con una qualsiasi altra unità di transazione.
+
+    Ad esempio, partendo da \textbf{$r_1$} che fa una lettura su \textbf{$x$}, vediamo che la stessa \textbf{$x$} è utilizzata in \textbf{$w_2$}. \textbf{$r_3$} non è in conflitto con \textbf{$r_1$} in quanto essendo due letture non ho problemi anche se l'accesso fosse simmultaneo.
+
+    Disegnamo allora un vettore da dalla transazione 1 alla transazione 2.
+    \begin{center}
+        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+        
+            \node[main] (1) {$t_1$}; 
+            \node[main] (2) [above right of=1]{$t_2$}; 
+            \node[main] (3) [below right of=1]{$t_3$}; 
+            \node[main] (4) [above right of=3]{$t_4$};
+            \draw[->] (1) -- (2);
+        \end{tikzpicture} 
+    \end{center}
+
+    Continuando a seguire l'algoritmo per tutti gli altri punti il risultato è il seguente:
+    \begin{center}
+        \begin{tikzpicture}[node distance={15mm}, main/.style = {draw, circle}] 
+        
+            \node[main] (1) {$t_1$}; 
+            \node[main] (2) [above right of=1]{$t_2$}; 
+            \node[main] (3) [below right of=1]{$t_3$}; 
+            \node[main] (4) [above right of=3]{$t_4$};
+            \draw[->] (1) -- (2);
+            \draw[->] (2) -- (3);
+            \draw[->] (1) -- (3);
+            \draw[->] (4) -- (3);
+        \end{tikzpicture} 
+    \end{center}
+
+    Da questo grafo appena disegnato possiamo quindi estrarre uno Schedule seriale.
+
+    Per prima cosa andranno tutte le transazioni senza vertici entranti, ovvero $t_1, t_4$ dopo questo l'algoritmo continua contando i nodi già estratti come senza vertici uscenti.
+
+    Il risultato è quindi la sequenza $t_1 \rightarrow t_4 \rightarrow t_2 \rightarrow t_3$.
+    
+    Lo schedule seriale è quindi:
+
+    
+    \begin{center}
+        \begin{tabularx}{10cm}{|p{25mm}|X|}
+            \hline
+            \rowcolor{gray!30}
+            \textbf{Transazione} & \textbf{operazioni}\\
+            \hline
+            $t_1$& $r_1(x), w_1(u)$\\
+            $t_4$& $w_4(t)$\\
+            $t_2$& $w_2(x), r_2(y)$\\
+            $t_3$& $r_3(x), w_3(v), r_3(y), w_3(u), w_3(t)$\\
+            \hline
+        \end{tabularx}
+    \end{center}
+
+    Che risulta nello schedule completo:
+    \[S_\text{seriale} = r_1(x), w_1(u), w_4(t), w_2(x), r_2(y), r_3(x), w_3(v), r_3(y), w_3(u), w_3(t)\]
+\end{exmp}
