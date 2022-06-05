@@ -123,7 +123,7 @@ Lo schedule seriale è conflict equivalente e quindi view equivalente. Ovvero po
 \subsection{Svolgere gli esercizi}
 
 \begin{exmp}
-    Data lo schedule:
+    Dato lo schedule:
 
     \[S = r_1(x), w_2(x), r_3(x), w_1(u), w_3(v), r_3(y), r_2(y), w_3(u), w_4(t), w_3(t)\]
 
@@ -185,4 +185,83 @@ Lo schedule seriale è conflict equivalente e quindi view equivalente. Ovvero po
 
     Che risulta nello schedule completo:
     \[S_\text{seriale} = r_1(x), w_1(u), w_4(t), w_2(x), r_2(y), r_3(x), w_3(v), r_3(y), w_3(u), w_3(t)\]
+
+    Questo schedule seriale è \textbf{Conflict equivalente} allo schedule $S$ ed essendo \textbf{Conflict equivalente} è anche \textbf{View equivalente}.
+\end{exmp}
+
+\begin{exmp}
+    Se abbiamo uno Schedule
+
+    \[S = w_1(x), w_2(x), r_2(x), w_1(x)\]
+
+    Possiamo vedere se è view equivalente confrontando tutte le permutazioni delle transazioni.
+
+    Ovvero le seguenti transazioni:
+
+    \begin{center}
+        \begin{tabularx}{10cm}{|p{25mm}|X|}
+            \hline
+            \rowcolor{gray!30}
+            \textbf{Transazione} & \textbf{operazioni}\\
+            \hline
+            $t_1$& $w_1(x), w_1(x)$\\
+            $t_2$& $w_2(x), r_2(x)$\\
+            \hline
+        \end{tabularx}
+    \end{center}
+
+    Possiamo ordinarle come:
+
+    \begin{enumerate}
+        \item $w_1(x), w_1(x), w_2(x), r_2(x)$
+        \item $w_2(x), r_2(x), w_1(x), w_1(x)$
+    \end{enumerate}
+
+    Da questo esempio possiamo notare come non esiste uno schedule view equivalente e quindi lo schedule sopra definito non è View serializzabile. Potrebbe però essere Conflict serializzabile.
+
+    Disegnamo il grafo dei conflitti delle transazioni
+    \begin{center}
+        \begin{tikzpicture}[node distance={5cm}, main/.style = {draw, circle}] 
+        
+            \node[main] (1) {$t_1$}; 
+            \node[main] (2) [right of=1]{$t_2$}; 
+            \draw[->] (1) to [out=20, in=160] (2);
+            \draw[->] (2) to [out=200, in=-20] (1);
+        \end{tikzpicture} 
+    \end{center}
+
+    Ci accorgiamo che non è nemmeno conflict serializzabile.
+\end{exmp}
+
+\begin{exmp}
+    Prendendo il seguente schedule:
+
+    \[ S = w_0(x), r_2(x), r_1(x), w_2(x), w_2(z) \]
+    Possiamo vedere se è View serializzabile.
+
+    Confrontiamo le permutazioni delle seguenti transazioni
+
+    \begin{center}
+        \begin{tabularx}{10cm}{|p{25mm}|X|}
+            \hline
+            \rowcolor{gray!30}
+            \textbf{Transazione} & \textbf{operazioni}\\
+            \hline
+            $t_0$& $w_0(x)$\\
+            $t_1$& $r_1(x)$\\
+            $t_2$& $r_2(x), w_2(x), w_2(z)$\\
+            \hline
+        \end{tabularx}
+    \end{center}
+
+    \begin{enumerate}
+        \item \hl{$w_0(x), r_1(x), r_2(x), w_2(x), w_2(z)$}
+        \item $w_0(x), r_2(x), w_2(x), w_2(z), r_1(x)$
+        \item $r_1(x), w_0(x), r_2(x), w_2(x), w_2(z)$
+        \item $r_1(x), r_2(x), w_2(x), w_2(z), w_0(x)$
+        \item $r_2(x), r_1(x), w_2(x), w_2(z), w_0(x)$
+        \item $r_2(x), w_2(x), w_2(z), w_0(x), r_1(x)$
+    \end{enumerate}
+
+    Abbiamo quindi che la prima delle permutazioni è View equivalente allo schedule $S$.
 \end{exmp}
