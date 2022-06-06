@@ -68,3 +68,48 @@ Per ogni dipendenza xy che viola bcnf creo una relazione xy e tolgo y dalla tabe
 La terza forma normale da delle condizioni meno stringenti rispetto alla forma normale di Boice Codd.
 
 \subsection{Svolgere gli esercizi}
+
+\begin{exmp}
+    Data la relazione 
+    \[R(A,B,C,D)\]
+    Con dipendenze funzionali
+    \[ C \rightarrow D,C \rightarrow A,B \rightarrow C \]
+    
+    \begin{enumerate}
+        \item Mostrare tutte le chiavi di R e motivare perché ognuna è chiave.
+        \item Dire quali dipendenze violano la forma normale di Boyce Codd spiegandone la ragione.
+        \item Decomporre in BCNF
+    \end{enumerate}
+    
+    Per trovare le chiavi dobbiamo per prima cosa calcolare le chiusure, sicuramente andremo a calcolare le chiusure di tutte le parti sinistre delle dipendenze. ovvero C e B
+
+    Calcolare le chiusure significa cercare relativamente ad ogni attributo dove si può andare a finire seguendo le frecce.
+
+    \begin{equation} \label{eq1}
+        \begin{split}
+            C^+&= \left\{ C \right\} \\
+            &= \left\{ C,D \right\}  \\
+            &= \left\{ C,D,A \right\}  \\
+        \end{split}
+    \end{equation}
+
+    Quindi qui ad esempio da C potevamo andare in A e da C potevamo andare in d
+
+    \begin{equation} \label{eq1}
+        \begin{split}
+            B^+&= \left\{  B \right\}\\
+            &= \left\{  B,C \right\}\\
+            &= \left\{  B,C,D \right\}\\
+            &= \left\{  B,C,D,A \right\}\\
+        \end{split}
+    \end{equation}
+
+    Nella chiusura qui sopra invece da B siamo andati in C e da C potevamo percorrere tutte le strade della ciusura di C.
+
+    Come risultato di questi calcoli otteniamo quindi le due chiusure.
+
+    \[C^+= \left\{ C,D,A \right\} \] \[ B^+= \left\{  B,C,D,A \right\}\]
+
+    Ci accorgiamo che la chiusura di \textbf{B} contiene tutti gli attributi della relazione. Per questo motivo possiamo quindi dire che B è chiave della relazione.
+
+\end{exmp}
