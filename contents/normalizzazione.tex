@@ -51,6 +51,25 @@ Una dipendenza funzionale buona non causa anomalie.
 
 Infatti, se la dipendenza funzionale ha a sinistra della dipendenza una chiave, allora nella parte destra avrò un dato che è responsabilità della tabella immagazzinare. Questo viene però definito in maniera più completa nelle forme normali.
 
+\subsection{Copertura ridotta}
+
+Una copertura ridotta è quando, per comprendere meglio le dipendenze funzionali, si scompongono le dipendenze al loro minimo.
+
+Per estrarre la copertura ridotta, in una dipendenza funzionale, al lato destro della frecca deve essere presente un solo attributo.
+
+\begin{exmp}
+    Avendo una dipendenza funzionale del tipo:
+
+    \[M \rightarrow RSDG\]
+
+    Posso scomporla in:
+
+    \[M \rightarrow R, M \rightarrow S,M \rightarrow D,M \rightarrow G\]
+
+\end{exmp}
+
+
+
 \section{Forme normali}
 
 Le forme normali definiscono un pattern per strutturare la gestione delle dipendenze funzionali in modo da evitare le anomalie.
@@ -136,5 +155,143 @@ La terza forma normale da delle condizioni meno stringenti rispetto alla forma n
     Possiamo quindi accorpare $R_1,R_2$ poichè hanno la stessa chiave e la situazione finale diventa:
 
     \[R(\underline{B},C), R_1(\underline{C},D,A)\]
+
+\end{exmp}
+
+\begin{exmp}
+    Considerando lo schema relazionale $R(E,N,L,C,S,D,M,P,A)$ con le seguenti dipendenze funzionali ne calcoliamo una copertura ridotta e scomponiamo la relazione in terza forma normale.
+
+    \[E \rightarrow NS, NL \rightarrow EMD, EN \rightarrow LCD, C \rightarrow S, D \rightarrow M, M \rightarrow D, EPD \rightarrow A, NLCP \rightarrow A\]
+
+    \paragraph{La copertura ridotta}
+    Scoponiamo allora in una copertura ridotta le precedenti dipendenze funzionali. Per prima cosa espandiamo i secondi membri delle dipendenze in più dipendenze.
+    \[
+    E \rightarrow N,
+    E \rightarrow S,
+    NL \rightarrow E,
+    NL \rightarrow M,
+    NL \rightarrow D,
+    EN \rightarrow L,
+    \]
+    \[
+    EN \rightarrow C,
+    EN \rightarrow D,
+    C \rightarrow S,
+    D \rightarrow M,
+    M \rightarrow D,
+    EPD \rightarrow A,
+    NLCP \rightarrow A
+    \]
+
+    Possiamo quindi rimuovere tutte le dipendenze eliminabili dal primo membro.
+
+    Per fare questo dobbiamo vedere se ci sono dipendenze funzionali che possono essere usate per ridurre gli attributi al primo membro.
+
+    In questo caso $EN$ presente al primo membro di $ EN \rightarrow L,
+    EN \rightarrow C,
+    EN \rightarrow D$ si trasforma in solo $E$
+
+    Viene ridotto anche $EPD \rightarrow A $ in $ EP \rightarrow A$ utilizzando la dipendenza appena creatasi $E \rightarrow D$
+
+    La terza e ultima riduzione è quella di $ NLCP \rightarrow A$ che viene ridotta in $NLP \rightarrow A $ utilizzando le dipendenze concatenate $NL \rightarrow E \rightarrow C$ 
+
+    Otteniamo quindi il seguente risultato.
+
+    \[
+    E \rightarrow N,
+    E \rightarrow S,
+    NL \rightarrow E,
+    NL \rightarrow M,
+    NL \rightarrow D,
+    E \rightarrow L,
+    \]
+    \[
+    E \rightarrow C,
+    E \rightarrow D,
+    C \rightarrow S,
+    D \rightarrow M,
+    M \rightarrow D,
+    EP \rightarrow A,
+    NLP \rightarrow A
+    \]
+
+    Possiamo ora rimuovere le dipendenze ridondanti.
+
+    Infatti ripercorrendo all'indietro le dipendenze possiamo vedere come $E \rightarrow S$ sia deducibile da $E \rightarrow C  \rightarrow S$.
+
+    Anche $NL \rightarrow M$ è deducibile da $ NL \rightarrow E \rightarrow D \rightarrow M$.
+
+    Un altro è $NL \rightarrow D$ deducibile da $NL \rightarrow E \rightarrow D $ 
+
+    Risulta quindi:
+
+    \[
+        E \rightarrow N,
+        NL \rightarrow E,
+        E \rightarrow L,
+        E \rightarrow C,
+        E \rightarrow D,
+        \]
+        \[
+        C \rightarrow S,
+        D \rightarrow M,
+        M \rightarrow D,
+        NLP \rightarrow A
+        \]
+
+    Abbiamo quindi ottenuto la \textbf{Copertura ridotta}
+
+    \paragraph{Le chiusure}
+
+    Calcoliamo le chiusure di tutti i primi membri delle dipendenze
+
+    \begin{equation}
+        \begin{split}
+            E^+&= \left\{E, N,L,C,D  \right\} \\
+            &= \left\{ N,L,C,D,E,S,M, \right\}  \\
+            &= \left\{ N,L,C,D,E,S,M,D \right\}  \\
+        \end{split}
+    \end{equation}
+
+    \begin{equation}
+        \begin{split}
+            NL^+&= \left\{ N,L,E \right\} \\
+            &= \left\{N,L,E, E^+ \right\}  \\
+            &= \left\{ E,N,L,C,D,E,S,M,D\right\}  \\
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            C^+&= \left\{C, S \right\} \\
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            D^+&= \left\{D,  M\right\} \\
+            &= \left\{ M,D\right\}  \\
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            M^+&= \left\{M, D \right\} \\
+            &= \left\{D, D^+ \right\}  \\
+            &= \left\{ D,M\right\}  \\
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            NLP^+&= \left\{N,L,P,A, \right\} \\
+            NLP^+&= \left\{N,L,P,A,NL^+ \right\} \\
+            NLP^+&= \left\{N,L,P,A,NL^+ \right\} \\
+            NLP^+&= \left\{N,L,P,A,E,C,D,S,M \right\} \\
+        \end{split}
+    \end{equation}
+
+    Notiamo che $NLP$ è superchiave ma la chiave migliore è la chiave più corta possibile.
+
+    Sostituendo quindi $E$ ad $NL$ utilizzando la giusta dipendenza funzionale otteniamo che $EP$ è è la nostra chiave minimale.
+
+    \paragraph{La decomposizione in BCNF}
+
 
 \end{exmp}
