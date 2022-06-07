@@ -81,7 +81,7 @@ La terza forma normale da delle condizioni meno stringenti rispetto alla forma n
         \item Decomporre in BCNF
     \end{enumerate}
     
-    Per trovare le chiavi dobbiamo per prima cosa calcolare le chiusure, sicuramente andremo a calcolare le chiusure di tutte le parti sinistre delle dipendenze. ovvero C e B
+    \paragraph{1.} Per trovare le chiavi dobbiamo per prima cosa calcolare le chiusure, sicuramente andremo a calcolare le chiusure di tutte le parti sinistre delle dipendenze. ovvero C e B
 
     Calcolare le chiusure significa cercare relativamente ad ogni attributo dove si può andare a finire seguendo le frecce.
 
@@ -111,5 +111,30 @@ La terza forma normale da delle condizioni meno stringenti rispetto alla forma n
     \[C^+= \left\{ C,D,A \right\} \] \[ B^+= \left\{  B,C,D,A \right\}\]
 
     Ci accorgiamo che la chiusura di \textbf{B} contiene tutti gli attributi della relazione. Per questo motivo possiamo quindi dire che B è chiave della relazione.
+
+    \paragraph{2.}
+
+    Pe trovare quali dipendenze violano la forma normale BCNF dobbiamo controllare quali di queste dipendenze non hanno una superchiave\footnote{Le dipendenze che rispettano la BCNF sono solo le dipendenze "Buone"} al lato sinistro della rappresentazione.
+
+    in questo caso la nostra chiave e superchiave è $B$. 
+
+    Possiamo quindi notare come $C \rightarrow D$ e $C \rightarrow A$ violino BCNF dato che C non è superchiave.
+
+    Siccome abbiamo delle violazioni di BCNF dobbiamo trovare come decomporre la relazione tramite BCNF.
+
+    \paragraph{3.} Per decomporre in BCNF dobbiamo estrarre dalla relazione tutti quegli attributi che rischiano di essere interessati dalle anomalie.
+
+    La decomposizione inizia togliendo la parte destra delle dipendenze funzionali dove l'attributo di sinistra non è chiave.
+
+    Abbiamo quindi che la nostra relazione $R(A,B,C,D)$ con chiave trovata prima in $B$ viene separata in
+    \[R(A,\underline{B},C) , R_1(\underline{C},D)\]
+
+    Rimuoviamo poi la seconda dipendenza funzionale e ci troviamo nella situazione:
+
+    \[R(\underline{B},C) , R_1(\underline{C},D), R_2(\underline{C},A)\]
+
+    Possiamo quindi accorpare $R_1,R_2$ poichè hanno la stessa chiave e la situazione finale diventa:
+
+    \[R(\underline{B},C), R_1(\underline{C},D,A)\]
 
 \end{exmp}
