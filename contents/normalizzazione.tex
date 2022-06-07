@@ -268,22 +268,19 @@ La terza forma normale da delle condizioni meno stringenti rispetto alla forma n
     \begin{equation}
         \begin{split}
             D^+&= \left\{D,  M\right\} \\
-            &= \left\{ M,D\right\}  \\
         \end{split}
     \end{equation}
     \begin{equation}
         \begin{split}
             M^+&= \left\{M, D \right\} \\
-            &= \left\{D, D^+ \right\}  \\
-            &= \left\{ D,M\right\}  \\
         \end{split}
     \end{equation}
     \begin{equation}
         \begin{split}
             NLP^+&= \left\{N,L,P,A, \right\} \\
-            NLP^+&= \left\{N,L,P,A,NL^+ \right\} \\
-            NLP^+&= \left\{N,L,P,A,NL^+ \right\} \\
-            NLP^+&= \left\{N,L,P,A,E,C,D,S,M \right\} \\
+            &= \left\{N,L,P,A,NL^+ \right\} \\
+            &= \left\{N,L,P,A,NL^+ \right\} \\
+            &= \left\{N,L,P,A,E,C,D,S,M \right\} \\
         \end{split}
     \end{equation}
 
@@ -293,5 +290,53 @@ La terza forma normale da delle condizioni meno stringenti rispetto alla forma n
 
     \paragraph{La decomposizione in BCNF}
 
+    $R$ viene partizionato in sottoinsiemi tali che due dipendenze funzionali $X \rightarrow A$ e $Y \rightarrow B$ sono insieme se $X_G^+=Y_G^+$.
 
+    In parole più semplici, se la chiusura di X e Y è la stessa esse sono in uno stesso insieme.
+
+    \begin{equation}
+        \begin{split}
+            E^+ & = \left\{ N,L,C,D,E,S,M,D \right\}  \\
+            NL^+ & = \left\{ N,L,C,D,E,S,M,D \right\}  \\
+            C^+ & = \left\{C, S \right\} \\
+            D^+ & = \left\{D,  M\right\} \\
+            M^+ & = \left\{D,M \right\}  \\
+            NLP^+ & = \left\{N,L,P,A,E,C,D,S,M \right\} \\
+        \end{split}
+    \end{equation}
+
+    Dato che La chiusura di $E$ e di $NL$ sono le stesse posso racchiuderle in una sola relazione.
+
+    Anche la chiusura di $D$ ed $M$
+
+    Ottengo quindi le seguenti relazioni dove se esistono due relazioni $S(X)$ e $T(Y)$ con $X \subseteq Y$, $S$ viene eliminata
+
+    \begin{equation}
+        \begin{split}
+            R_1 & =  (N,L,C,D,E ) \\
+            R_2 & = (C, S)\\
+            R_3 & = (D, M) \\
+            R_4 & = (N,L,P,A) \\
+        \end{split}
+    \end{equation}
+    Se, per qualche i, non esiste una relazione $S(X)$ con $K_i \subseteq X$, viene aggiunta una relazione $T(K_i )$.
+    In parole povere se manca una relazione di collegamento tra le presenti questa relazione va creata.
+
+    Dobbiamo quindi aggiungere $R_5 = (E,P)$
+    
+    \paragraph{Le chiavi}
+
+    Notiamo quindi in fine le chiavi delle relazioni.
+
+    \begin{equation}
+        \begin{split}
+            R_1 & = ( \underline{N,L},C,D,\underline{E}) \\
+            R_2 & = (\underline{C}, S ) \\
+            R_3 & = (\underline{D}, M) \\
+            R_4 & = (\underline{N,L,P},A ) \\
+            R_5 & = (\underline{E,P})\\
+        \end{split}
+    \end{equation}
+
+    Abbiamo quindi completato l'esercizio.
 \end{exmp}
