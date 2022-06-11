@@ -82,6 +82,14 @@ Questa forma normale da inoltre uno strumento per rendere una relazione priva di
 
 Per ogni dipendenza xy che viola bcnf creo una relazione xy e tolgo y dalla tabella di partenza.
 
+Una decomposizione conserva le dipendenze se ciascuna delle dipendenze funzionali dello schema originario coinvolge attributi che compaiono tutti insieme in uno degli schemi decomposti.
+
+Non sempre è possibile conservare tutte le dipendenze.
+
+\subsubsection{Operatività e spiegazioni semplificate}
+
+Uno schedule è in BCNF se per ogni dipendenza funzionale ho a sinistra della dipendenza una chiave.
+
 \subsection{Terza forma normale}
 
 La terza forma normale da delle condizioni meno stringenti rispetto alla forma normale di Boice Codd.

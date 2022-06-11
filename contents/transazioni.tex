@@ -118,11 +118,19 @@ Se uno schedule è conflict serializzabile allora è possibile costruire un graf
 
 Infatti se abbiamo un grafo aciclico dei conflitti possiamo anche comprendere se il nostro schedule è conflict serializzabile. Inoltre il grafo ci può fornire anche un ordine in cui le transazioni devono essere eseguite per avere uno schedule seriale.
 
+Un'azione $a_i$ è in conflitto con $a_j | (i \neq j)$, se operano sullo stesso
+oggetto e almeno una di esse è una scrittura. Due casi:
+\begin{itemize}
+    \item conflitto read-write (rw o wr)
+    \item conflitto write-write (ww)
+\end{itemize}
+
 Lo schedule seriale è conflict equivalente e quindi view equivalente. Ovvero posso trovare uno schedule conflict serializzabile, conflict equivalente ad uno schedule seriale.
 
 \subsection{Svolgere gli esercizi}
 
 Una raccolta di esercizi esemplificativi ed eseplicativi degli esercizi sugli schedule.
+   
 
 \begin{exmp}
     Dato lo schedule:
