@@ -76,11 +76,15 @@ Le forme normali definiscono un pattern per strutturare la gestione delle dipend
 
 \subsection{Forma normale di Boyce Codd(BCNFF)}
 
-Una relazione è in forma normale di BC se ogni dipendenza funzionale non banale è buona.
+Una relazione $R$ con chiavi $K_1 ,..., K_n$ è in
+\textbf{forma normale di Boyce e Codd} se ogni dipendenza funzionale non banale è buona.
 
+Possiamo dire che una dipendenza funzionale non banale $X \rightarrow Y$ \textbf{è buona} se $\exists i | K_i \subseteq X$. \textbf{In poche parole $X$ deve essere superchiave della relazione.}
+
+\subsection{Strumenti della forma normale}
 Questa forma normale da inoltre uno strumento per rendere una relazione priva di anomalie.
 
-Per ogni dipendenza xy che viola bcnf creo una relazione xy e tolgo y dalla tabella di partenza.
+Per ogni dipendenza $XY$ che viola BCNF posso creare una relazione $XY$ e togliere $Y$ dalla tabella di partenza.
 
 Una decomposizione conserva le dipendenze se ciascuna delle dipendenze funzionali dello schema originario coinvolge attributi che compaiono tutti insieme in uno degli schemi decomposti.
 
@@ -88,7 +92,18 @@ Non sempre è possibile conservare tutte le dipendenze.
 
 \subsubsection{Operatività e spiegazioni semplificate}
 
-Uno schedule è in BCNF se per ogni dipendenza funzionale ho a sinistra della dipendenza una chiave.
+Dati uno schema R(U) e un insieme di dipendenze F su U, con
+chiavi $K1, ... , K_n$
+
+\begin{enumerate}
+    \item Viene calcolata una copertura ridotta $G$ di $F$
+    \item $G$ viene partizionato in sottoinsiemi tali che due dipendenze funzionali $X \rightarrow A$ e $Y \rightarrow B$ sono insieme se $X_G^+ = Y_G^+$
+    \item Viene costruita una relazione per ogni sotto-insieme
+    \item Se esistono due relazioni $S(X)$ e $T(Y)$ con $X \subseteq Y$Una delle due viene eliminata
+    \item Se, per qualche $i$, non esiste una relazione $S(X)$ con $K_i \subseteq X$, viene aggiunta una relazione $T(K_i)$
+\end{enumerate}
+
+Controllare se le dipendenze violano la forma normale BCNF significa controllare quali di queste dipendenze non hanno una superchiave al lato sinistro della rappresentazione.
 
 \subsection{Terza forma normale}
 
